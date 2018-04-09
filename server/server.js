@@ -1,10 +1,14 @@
 const express = require('express'),
-    app = express();
+    app = express(),
+    bodyParser = require('body-parser');
 
 const projectRoutes = require('./routes/projects');
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
 app.get('/', (req, res) => {
-    res.json({message: 'Welcome to my app api!'})
+    res.json({message: 'Welcome to my app!'})
 });
 
 app.use('/api/projects', projectRoutes);

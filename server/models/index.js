@@ -4,4 +4,4 @@ mongoose.connect('mongodb://localhost/projects-list-api');
 
 mongoose.Promise = Promise;
 
-module.exports.Todo = require('./project');
+module.exports.Project = require('./project');
