@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
+import NoteManager from './components/NoteManager/NoteManager';
 
 // import Crew from './components/crew/crew';
 
@@ -12,10 +13,7 @@ class App extends Component {
       <div className="App">
         <Header />
         {/* Searchbar */}
-        {/* Note Manager  */}
-          {/* Add new note */}
-          {/* Notes View Selector */}
-          {/* Notes Card Deck */}
+        <NoteManager />
         <Footer />
       </div>
     );
