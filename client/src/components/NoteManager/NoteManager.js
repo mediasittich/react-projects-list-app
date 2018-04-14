@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './NoteManager.css';
 import AddNote from '../AddNote/AddNote';
 import NotesListViewSelector from '../NotesListViewSelector/NotesListViewSelector';
+import NotesCardDeck from '../NotesCardDeck/NotesCardDeck';
 
 class NoteManager extends Component {
     render() {
@@ -9,7 +10,7 @@ class NoteManager extends Component {
             <main className="container mt-5">
                 <AddNote />
                 <NotesListViewSelector />
-                {/* Notes Card Deck */}
+                <NotesCardDeck />
             </main>
         );
     }
