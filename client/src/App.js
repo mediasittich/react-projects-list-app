@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Header from './components/Header/Header';
+import Searchbar from './components/Searchbar/Searchbar';
 import Footer from './components/Footer/Footer';
 import NoteManager from './components/NoteManager/NoteManager';
 
@@ -12,7 +12,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        {/* Searchbar */}
+        <Searchbar />
         <NoteManager />
         <Footer />
       </div>
