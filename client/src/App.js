@@ -12,16 +12,20 @@ class App extends Component {
         {/* Header */}
         <Header />
         {/* Searchbar */}
-        {/* Add new note */}
-        {/* Notes View Selector */}
-        {/* Notes Card Deck */}
+        {/* Note Manager  */}
+          {/* Add new note */}
+          {/* Notes View Selector */}
+          {/* Notes Card Deck */}
         {/* Footer */}
 
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p>my app goes here!</p>
+        <div className="container">
+        <p className="btn btn-primary">my app goes here!</p>
+        </div>
+        
       </div>
     );
   }
