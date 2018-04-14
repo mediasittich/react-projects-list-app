@@ -5,11 +5,11 @@ class Header extends Component {
     render() {
         return (
             <header>
-                <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-                    <div class="container">
-                        <div class="navbar-brand">
-                            <i class="fa fa-pencil-square-o fa-2x align-middle mr-2"></i>
-                            <span class="align-middle">ProjectBox</span>
+                <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
+                    <div className="container">
+                        <div className="navbar-brand">
+                            <i className="fa fa-pencil-square-o fa-2x align-middle mr-2"></i>
+                            <span className="align-middle">ProjectBox</span>
                         </div>
                     </div>
                 </nav>
