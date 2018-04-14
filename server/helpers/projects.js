@@ -2,6 +2,7 @@ const db = require('../models');
 
 exports.getProjects = (req, res) => {
     db.Project.find()
+        .populate('urls')
         .then((projects) => {
             res.json(projects);
         })
@@ -10,6 +11,7 @@ exports.getProjects = (req, res) => {
         })
 }
 exports.createProject = (req, res) => {
+    console.log(req.body);
     db.Project.create(req.body)
         .then((newProject) => {
             res.status(201).json(newProject);
@@ -29,7 +31,11 @@ exports.getProject = (req, res) => {
         })
 }
 exports.updateProject = (req, res) => {
-    db.Project.findByIdAndUpdate({_id: req.params.projectId}, req.body, {new: true})
+    console.log(req.body)
+    db.Project.findByIdAndUpdate(
+        {_id: req.params.projectId},
+        {$push: {url: req.body.url}},
+        {new: true})
         .then((updatedProject) => {
             res.json(updatedProject)
         })
