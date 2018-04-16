@@ -28,6 +28,8 @@ class ProjectManager extends Component {
         this.addProject = this.addProject.bind(this);
         this.openAddModal = this.openAddModal.bind(this);
         this.closeAddModal = this.closeAddModal.bind(this);
+        this.openEditModal = this.openEditModal.bind(this);
+        this.closeEditModal = this.closeEditModal.bind(this);
     }
 
     // DEFINE FUNCTIONS
@@ -48,8 +50,6 @@ class ProjectManager extends Component {
     }
 
     toggleComplete(project) {
-        console.log(project._id, project.completed)
-
         const updateURL = API_URL + project._id;
 
         fetch(updateURL, {
@@ -82,6 +82,40 @@ class ProjectManager extends Component {
                 this.setState({projects: projects});
             });
 
+    }
+
+    editProject(project) {
+        console.log(project)
+        // const updateURL = API_URL + project._id;
+        // fetch(updateURL, {
+        //     method: 'PUT',
+        //     headers: new Headers({
+        //         'Content-Type': 'application/json'
+        //     }),
+        //     body: JSON.stringify({completed: !project.completed})
+        //     })
+        //     .then(res => {
+        //         if (!res.ok) {
+        //             if (res.status >= 400 && res.status < 500) {
+        //                 return res.json().then(data => {
+        //                     let err = {errorMessage: data.message};
+        //                     throw err;
+        //                 })
+        //             } else {
+        //                 let err = {errorMessage: 'Please try again later. Server is not responding.'};
+        //                 throw err;
+        //             }
+        //         }
+        //         return res.json();
+        //     })
+        //     .then((updatedProject) => {
+        //         const projects = this.state.projects.map(p => (
+        //             (p._id === updatedProject._id)
+        //             ? {...p, completed: !p.completed}
+        //             : p
+        //         ));
+        //         this.setState({projects: projects});
+        //     });
     }
 
     deleteProject(id) {
@@ -121,6 +155,16 @@ class ProjectManager extends Component {
             isAddProjectModalOpen: false
         });
     }
+    openEditModal = () => {
+        this.setState({
+            isEditProjectModalOpen: true
+        });
+    }
+    closeEditModal = () => {
+        this.setState({
+            isEditProjectModalOpen: false
+        });
+    }
 
     // RENDER COMPONENT
     render() {
@@ -130,8 +174,17 @@ class ProjectManager extends Component {
                 {...p}
                 onDelete={this.deleteProject.bind(this, p._id)}
                 onComplete={this.toggleComplete.bind(this, p)}
+                onEdit={this.openEditModal.bind(this, p)}
             />
         ));
+        // const editProjects = this.state.projects.map((p) => (
+        //     <EditProjectForm 
+        //         key={p._id}
+        //         {...p}
+        //         editProject={this.editProject}
+        //     />
+        // ));
+        // console.log(this.state.projects)
         return (
             <main className="container mt-5 main-container">
                 {/* <Searchbar /> */}
@@ -141,12 +194,15 @@ class ProjectManager extends Component {
                 </div>
                 
                 <Modal isOpen={this.state.isAddProjectModalOpen}>
-                    Hello from Modal
                     <span style={{cursor: 'pointer'}} onClick={this.closeAddModal}> X </span>
                     <AddProjectForm addProject={this.addProject} />
                 </Modal>
-                <Modal isOpen={this.state.isEditProjectModalOpen}>Edit Form goes here
-                    <EditProjectForm />
+                <Modal isOpen={this.state.isEditProjectModalOpen}>
+                    <span style={{cursor: 'pointer'}} onClick={this.closeEditModal}> X </span>
+                    <EditProjectForm 
+                        editProject={this.editProject} 
+                    />
+                    {/* {editProjects} */}
                 </Modal>
                 
                 {/* <NotesListViewSelector /> */}

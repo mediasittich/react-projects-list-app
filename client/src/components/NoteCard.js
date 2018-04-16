@@ -21,7 +21,12 @@ const NoteCard = (props) => {
             <p>completed: {props.completed.toString()}</p>
             <p>{truncatedContent}</p>
             <p><small className="text-muted">Last updated 3 mins ago</small></p>
-            <button type="button" className="btn btn-light">View</button>
+            <button 
+                type="button" 
+                className="btn btn-light"
+                onClick={props.onEdit}
+                // projectdata={props}
+            >Edit</button>
             <button 
                 type="button" 
                 className="btn btn-success" 

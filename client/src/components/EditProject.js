@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 
-class AddProjectForm extends Component {
+class EditProjectForm extends Component {
 
     constructor(props) {
         super(props);
 
+        const { project } = props;
         this.state = {
-            title: '',
-            content: ''
+            project
         }
 
         this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -31,14 +31,11 @@ class AddProjectForm extends Component {
     }
 
     render() {
+        console.log(this.props)
+        console.log('EDITING PROJECT!!!')
         return (
-            <div className="card card-body">
-                <div>
-                    <span className="card-title h4 my-auto"><i className="fa fa-file-text-o fa-lg"></i> Edit Project</span>
-                    <button type="button">
-                        <span aria-hidden="true"><i className="fa fa-remove mr-2 text-danger"></i></span>
-                    </button>
-                </div>
+            <div>
+                <span className="card-title h4 my-auto"><i className="fa fa-file-text-o fa-lg"></i> Edit Project</span>
 
                 <form>
                 <input 
@@ -59,7 +56,7 @@ class AddProjectForm extends Component {
                 <button>Cancel</button>
                 <button 
                     onClick={this.handleSubmit}
-                >Save New Project</button>
+                >Save changes</button>
                 </form>
             </div>
         );
@@ -70,4 +67,4 @@ class AddProjectForm extends Component {
 //     handleAddProject: PropTypes.func
 // }
 
-export default AddProjectForm;
+export default EditProjectForm;
