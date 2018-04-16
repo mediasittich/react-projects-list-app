@@ -12,7 +12,8 @@ exports.getProjects = (req, res) => {
 }
 exports.createProject = (req, res) => {
     console.log(req.body);
-    db.Project.create(req.body)
+    console.log(req.body.newProject)
+    db.Project.create(req.body.newProject)
         .then((newProject) => {
             res.status(201).json(newProject);
         })

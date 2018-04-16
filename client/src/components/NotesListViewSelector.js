@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './NotesListViewSelector.css';
 
 class NotesListViewSelector extends Component {
     render() {

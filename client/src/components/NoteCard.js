@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './NoteCard.css';
 
 const NoteCard = (props) => (
     
@@ -21,7 +20,7 @@ const NoteCard = (props) => (
             <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
             <p><span className="badge badge-pill badge-info">Tag</span></p>
 
-            <button className="btn btn-dark">View</button>
+            <a className="btn btn-light">View</a>
             {/* <button className="btn btn-success">Edit</button>
             <button className="btn btn-danger">Delete</button> */}
         </div>
