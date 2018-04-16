@@ -12,6 +12,8 @@ import * as apiCalls from '../api';
 
 const API_URL = '/api/projects';
 
+Modal.setAppElement('#root');
+
 class ProjectManager extends Component {
     constructor(props) {
         super(props);
@@ -24,6 +26,8 @@ class ProjectManager extends Component {
         };
 
         this.addProject = this.addProject.bind(this);
+        this.openAddModal = this.openAddModal.bind(this);
+        this.closeAddModal = this.closeAddModal.bind(this);
     }
 
     // DEFINE FUNCTIONS
@@ -36,11 +40,16 @@ class ProjectManager extends Component {
         this.setState({projects});
     }
 
-    // toggleModal = () => {
-    //     this.setState({
-    //         isOpen: !this.state.isOpen
-    //     });
-    // }
+    openAddModal = () => {
+        this.setState({
+            isAddProjectModalOpen: true
+        });
+    }
+    closeAddModal = () => {
+        this.setState({
+            isAddProjectModalOpen: false
+        });
+    }
 
     // addProject(project) {
     //     this.setState({ isAddProjectModalOpen: false });
@@ -123,17 +132,17 @@ class ProjectManager extends Component {
             <main className="container mt-5 main-container">
                 {/* <Searchbar /> */}
                 {/* <AddNote /> */}
-                {/* <div className="text-center mt-4 mb-2">
-                    <button type="button" className="btn btn-primary btn-lg" onClick={this.toggleModal}>Add New Note</button>
-                </div> */}
+                <div className="text-center mt-4 mb-2">
+                    <button type="button" className="btn btn-primary btn-lg" onClick={this.openAddModal}>Add New Note</button>
+                </div>
                 {/* Modals */}
-                {/* <Modal isOpen={this.state.isAddProjectModalOpen}>
+                <Modal isOpen={this.state.isAddProjectModalOpen}>
+                    Hello from Modal
+                    <span style={{cursor: 'pointer'}} onClick={this.closeAddModal}> X </span>
                     <AddProjectForm addProject={this.addProject} />
                 </Modal>
-                <Modal isOpen={this.state.isEditProjectModalOpen}>Edit Form goes here</Modal> */}
+                {/* <Modal isOpen={this.state.isEditProjectModalOpen}>Edit Form goes here</Modal> */}
                 {/* <NotesListViewSelector /> */}
-
-                <AddProjectForm  addProject={this.addProject} />
 
                 <div className="card-deck mb-4">
                     {projects}

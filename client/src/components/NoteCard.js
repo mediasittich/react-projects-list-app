@@ -1,32 +1,42 @@
 import React, { Component } from 'react';
 
-const NoteCard = (props) => (
-    
-    <div className="card">
-        <div className="card-body">
-            <div className="d-flex flex-row justify-content-between">
-                <h5 className="card-title">{props.title}</h5>
-                <div className="form-check">
-                    <input 
-                        className="form-check-input" 
-                        type="checkbox" 
-                        value="" 
-                        id="defaultCheck1" 
-                    />
-                </div>
-            </div>
-            
-            <p className="card-text">{props.content}</p>
-            <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
-            <p><span className="badge badge-pill badge-info">Tag</span></p>
+const truncate = (str) => {
+    if (!str) {
+        return '...'
+    }
+    if (str.length > 20) {
+        return str.substring(0, 20) + '...'
+    }
+}
 
-            <a className="btn btn-light">View</a>
+const NoteCard = (props) => {
+    const truncatedContent = truncate(props.content);
+    return (
+        <div className="card">
+            <div className="card-body">
+                <div className="d-flex flex-row justify-content-between">
+                    <h5 className="card-title">{props.title}</h5>
+                    <div className="form-check">
+                        <input 
+                            className="form-check-input" 
+                            type="checkbox" 
+                            value="" 
+                            id="defaultCheck1" 
+                        />
+                    </div>
+                </div>
+            
+                <p className="card-text">{truncatedContent}</p>
+                <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+                <p><span className="badge badge-pill badge-info">Tag</span></p>
+
+                <a className="btn btn-light">View</a>
             {/* <button className="btn btn-success">Edit</button>
             <button className="btn btn-danger">Delete</button> */}
         </div>
     </div>
-
-)
+    );
+}
 // class NoteCard extends Component {
 //     render() {
 //         return (
