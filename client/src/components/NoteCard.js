@@ -10,7 +10,7 @@ const truncate = (str) => {
 }
 
 const NoteCard = (props) => {
-    // console.log(props);
+    console.log(props);
     const truncatedContent = truncate(props.content);
     return (
         <li style={{listStyleType: 'none', border: '1px solid gray', margin: '5px'}}>
