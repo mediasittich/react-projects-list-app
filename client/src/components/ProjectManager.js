@@ -4,13 +4,13 @@ import Modal from 'react-modal';
 import AddProjectForm from './AddProject';
 import EditProjectForm from './EditProject';
 
-import Searchbar from './Searchbar';
-import NotesListViewSelector from './NotesListViewSelector';
+// import Searchbar from './Searchbar';
+// import NotesListViewSelector from './NotesListViewSelector';
 import NoteCard from './NoteCard';
 
 import * as apiCalls from '../api';
 
-const API_URL = '/api/projects';
+// const API_URL = '/api/projects';
 
 Modal.setAppElement('#root');
 
@@ -35,11 +35,19 @@ class ProjectManager extends Component {
         this.loadProjects();
     }
 
+    // API handlers
     async loadProjects() {
         let projects = await apiCalls.getProjects();
         this.setState({projects});
     }
 
+    async addProject(item) {
+        console.log('Adding new project', item);
+        let newProject = await apiCalls.createProject(item);
+        this.setState({projects: [newProject,...this.state.projects]})
+    }
+
+    // Modal handlers
     openAddModal = () => {
         this.setState({
             isAddProjectModalOpen: true
@@ -49,75 +57,6 @@ class ProjectManager extends Component {
         this.setState({
             isAddProjectModalOpen: false
         });
-    }
-
-    // addProject(project) {
-    //     this.setState({ isAddProjectModalOpen: false });
-    //     console.log(this.state)
-    //     const newProject = project;
-
-    //     // if (!title || title.length === 0) {
-    //     //     throw Error('Title is required');
-    //     // }
-    //     fetch(API_URL, {
-    //         method: 'POST',
-    //         headers: new Headers({
-    //             'Content-Type': 'application/json'
-    //         }),
-    //         body: JSON.stringify({project: newProject})
-    //     })
-    //         .then(res => {
-    //             if (!res.ok) {
-    //                 if (res.status >= 400 && res.status < 500) {
-    //                     return res.json().then(data => {
-    //                         let err = {errorMessage: data.message};
-    //                         throw err;
-    //                     })
-    //                 } else {
-    //                     let err = {errorMessage: 'Please try again later. Server is not responding.'};
-    //                     throw err;
-    //                 }
-    //             }
-    //             return res.json();
-    //         })
-    //         .then(res => {
-    //             this.state({projects: [...this.state.projects, newProject]})
-    //         })
-    // }
-
-    addProject(newProject) {
-        console.log('Adding new project', newProject);
-        fetch(API_URL, {
-            method: 'POST',
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            }),
-            body: JSON.stringify({newProject})
-            })
-            .then(res => {
-                // console.log()
-                console.log(res)
-                console.log(newProject)
-                if (!res.ok) {
-                    if (res.status >= 400 && res.status < 500) {
-                        return res.json().then(data => {
-                            let err = {errorMessage: data.message};
-                            throw err;
-                        })
-                    } else {
-                        let err = {errorMessage: 'Please try again later. Server is not responding.'};
-                        throw err;
-                    }
-                }
-                return res.json();
-            })
-            .then(newProject => {
-                // console.log(this.state.projects)
-                console.log(newProject)
-            })
-            // .then(newProject => {
-            //     this.state({projects: [...this.state.projects, newProject]})
-            // })
     }
 
     // RENDER COMPONENT
@@ -141,7 +80,10 @@ class ProjectManager extends Component {
                     <span style={{cursor: 'pointer'}} onClick={this.closeAddModal}> X </span>
                     <AddProjectForm addProject={this.addProject} />
                 </Modal>
-                {/* <Modal isOpen={this.state.isEditProjectModalOpen}>Edit Form goes here</Modal> */}
+                <Modal isOpen={this.state.isEditProjectModalOpen}>Edit Form goes here
+                    <EditProjectForm />
+                </Modal>
+                
                 {/* <NotesListViewSelector /> */}
 
                 <div className="card-deck mb-4">

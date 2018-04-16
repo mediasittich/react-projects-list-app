@@ -2,6 +2,7 @@ const db = require('../models');
 
 exports.getProjects = (req, res) => {
     db.Project.find()
+        .sort({created_date: -1})
         .populate('urls')
         .then((projects) => {
             res.json(projects);

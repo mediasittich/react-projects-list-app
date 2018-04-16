@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 class AddProjectForm extends Component {
 
@@ -57,7 +57,7 @@ class AddProjectForm extends Component {
                     onChange={this.handleContentChange}
                 ></textarea>
                 <button 
-                    onClick={this.handleSubmit}
+                    onClick={this.handleSubmit} 
                 >Add New Project</button>
                 </form>
             </div>
