@@ -1,4 +1,4 @@
-const API_URL = '/api/projects';
+const API_URL = '/api/projects/';
 
 export async function getProjects() {
     return fetch(API_URL)

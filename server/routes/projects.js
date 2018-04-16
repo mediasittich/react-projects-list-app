@@ -9,6 +9,7 @@ router.route('/')
 
 router.route('/:projectId')
     .get(helpers.getProject)
+    .patch(helpers.updateKeysInProject)
     .put(helpers.updateProject)
     .delete(helpers.deleteProject)
 

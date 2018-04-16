@@ -10,7 +10,7 @@ import NoteCard from './NoteCard';
 
 import * as apiCalls from '../api';
 
-// const API_URL = '/api/projects';
+const API_URL = '/api/projects/';
 
 Modal.setAppElement('#root');
 
@@ -47,6 +47,69 @@ class ProjectManager extends Component {
         this.setState({projects: [newProject,...this.state.projects]})
     }
 
+    toggleComplete(project) {
+        console.log(project._id, project.completed)
+
+        const updateURL = API_URL + project._id;
+
+        fetch(updateURL, {
+            method: 'PATCH',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({completed: !project.completed})
+            })
+            .then(res => {
+                if (!res.ok) {
+                    if (res.status >= 400 && res.status < 500) {
+                        return res.json().then(data => {
+                            let err = {errorMessage: data.message};
+                            throw err;
+                        })
+                    } else {
+                        let err = {errorMessage: 'Please try again later. Server is not responding.'};
+                        throw err;
+                    }
+                }
+                return res.json();
+            })
+            .then((updatedProject) => {
+                const projects = this.state.projects.map(p => (
+                    (p._id === updatedProject._id)
+                    ? {...p, completed: !p.completed}
+                    : p
+                ));
+                this.setState({projects: projects});
+            });
+
+    }
+
+    deleteProject(id) {
+        const deleteURL = API_URL + id;
+
+        fetch(deleteURL, {
+            method: 'DELETE'
+            })
+            .then(res => {
+                if (!res.ok) {
+                    if (res.status >= 400 && res.status < 500) {
+                        return res.json().then(data => {
+                            let err = {errorMessage: data.message};
+                            throw err;
+                        })
+                    } else {
+                        let err = {errorMessage: 'Please try again later. Server is not responding.'};
+                        throw err;
+                    }
+                }
+                return res.json();
+            })
+            .then(() => {
+                const projects = this.state.projects.filter(project => project._id !== id);
+                this.setState({projects: projects});
+            });
+    }
+
     // Modal handlers
     openAddModal = () => {
         this.setState({
@@ -65,6 +128,8 @@ class ProjectManager extends Component {
             <NoteCard
                 key={p._id}
                 {...p}
+                onDelete={this.deleteProject.bind(this, p._id)}
+                onComplete={this.toggleComplete.bind(this, p)}
             />
         ));
         return (
@@ -74,7 +139,7 @@ class ProjectManager extends Component {
                 <div className="text-center mt-4 mb-2">
                     <button type="button" className="btn btn-primary btn-lg" onClick={this.openAddModal}>Add New Note</button>
                 </div>
-                {/* Modals */}
+                
                 <Modal isOpen={this.state.isAddProjectModalOpen}>
                     Hello from Modal
                     <span style={{cursor: 'pointer'}} onClick={this.closeAddModal}> X </span>

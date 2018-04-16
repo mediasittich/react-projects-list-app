@@ -13,7 +13,7 @@ exports.getProjects = (req, res) => {
 }
 exports.createProject = (req, res) => {
     console.log(req.body);
-    console.log(req.body.newProject)
+    // console.log(req.body.newProject)
     db.Project.create(req.body.newProject)
         .then((newProject) => {
             res.status(201).json(newProject);
@@ -32,6 +32,21 @@ exports.getProject = (req, res) => {
             res.send(err);
         })
 }
+exports.updateKeysInProject =(req, res) => {
+    console.log(req.body)
+    const updatedProject = req.body;
+    const id = req.params.projectId;
+    db.Project.findByIdAndUpdate(
+        {_id: req.params.projectId},
+        {$set: updatedProject})
+        .then((updatedProject) => {
+            res.json(updatedProject)
+        })
+        .catch((err) => {
+            res.send(err);
+        })
+}
+
 exports.updateProject = (req, res) => {
     console.log(req.body)
     db.Project.findByIdAndUpdate(

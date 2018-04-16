@@ -10,17 +10,25 @@ const truncate = (str) => {
 }
 
 const NoteCard = (props) => {
+    // console.log(props);
     const truncatedContent = truncate(props.content);
     return (
         <li style={{listStyleType: 'none', border: '1px solid gray', margin: '5px'}}>
-            <span>
+            <button className="btn btn-danger" onClick={props.onDelete}>
                 <i className="fa fa-trash align-middle mr-2"></i>
-            </span>
+            </button>
             <h5 className="card-title">{props.title}</h5>
+            <p>completed: {props.completed.toString()}</p>
             <p>{truncatedContent}</p>
             <p><small className="text-muted">Last updated 3 mins ago</small></p>
             <button type="button" className="btn btn-light">View</button>
-            <button type="button" className="btn btn-success">Mark as Complete</button>
+            <button 
+                type="button" 
+                className="btn btn-success" 
+                onClick={props.onComplete}
+            >
+                {props.completed ? 'Reactivate': 'Mark as Complete'}
+            </button>
         </li>
 
     );
