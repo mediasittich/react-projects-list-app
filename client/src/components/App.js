@@ -5,10 +5,11 @@ import Header from './Header';
 import ProjectManager from './ProjectManager';
 
 
+
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div style={{backgroundColor: '#f7f7f9'}}>
         <Header />
         <ProjectManager />
         {/* <Footer /> */}

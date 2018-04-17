@@ -8,7 +8,7 @@ class EditProjectForm extends Component {
 
         const { project } = props;
         this.state = {
-            project
+            project: {}
         }
 
         this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -32,12 +32,14 @@ class EditProjectForm extends Component {
 
     render() {
         console.log(this.props)
+        console.log(this.state)
         console.log('EDITING PROJECT!!!')
         return (
             <div>
                 <span className="card-title h4 my-auto"><i className="fa fa-file-text-o fa-lg"></i> Edit Project</span>
 
-                <form>
+
+                {/* <form>
                 <input 
                     className="form-control"
                     type="text" 
@@ -57,7 +59,7 @@ class EditProjectForm extends Component {
                 <button 
                     onClick={this.handleSubmit}
                 >Save changes</button>
-                </form>
+                </form> */}
             </div>
         );
     }

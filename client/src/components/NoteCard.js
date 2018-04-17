@@ -4,38 +4,50 @@ const truncate = (str) => {
     if (!str) {
         return '...'
     }
-    if (str.length > 20) {
-        return str.substring(0, 20) + '...'
+    if (str.length > 50) {
+        return str.substring(0, 50) + '...'
     }
+    return str;
 }
 
 const NoteCard = (props) => {
     console.log(props);
     const truncatedContent = truncate(props.content);
     return (
-        <li style={{listStyleType: 'none', border: '1px solid gray', margin: '5px'}}>
-            <button className="btn btn-danger" onClick={props.onDelete}>
-                <i className="fa fa-trash align-middle mr-2"></i>
-            </button>
-            <h5 className="card-title">{props.title}</h5>
-            <p>completed: {props.completed.toString()}</p>
-            <p>{truncatedContent}</p>
-            <p><small className="text-muted">Last updated 3 mins ago</small></p>
-            <button 
-                type="button" 
-                className="btn btn-light"
-                onClick={props.onEdit}
-                // projectdata={props}
-            >Edit</button>
-            <button 
-                type="button" 
-                className="btn btn-success" 
-                onClick={props.onComplete}
-            >
-                {props.completed ? 'Reactivate': 'Mark as Complete'}
-            </button>
-        </li>
 
+        // <div>
+        //     <button className="btn btn-danger" onClick={props.onDelete}>
+        //         <i className="fa fa-trash align-middle mr-2"></i>
+        //     </button>
+        //     
+        // </div>
+
+        <div className="card">
+            <div className="card-body">
+                <h4 className="card-title">{props.title}</h4>
+                <hr />
+                <p className="card-text">{truncatedContent}</p>
+                <p><small className="text-muted">Last updated 3 mins ago</small></p>
+                <button 
+                    type="button" 
+                    className="btn btn-light"
+                    // projectdata={props}
+                    onClick={props.onEdit}
+                    onLoad={props.editProject}
+                >
+                    Edit
+                </button>
+            </div>
+            <div className="card-footer text-center">
+                <button
+                    type="button"
+                    className={props.completed ? 'btn btn-success': 'btn btn-primary'} 
+                    onClick={props.onComplete}
+                >
+                    {props.completed ? 'Reactivate': 'Mark as Complete'}
+                </button>
+            </div>
+        </div>
     );
 }
 // class NoteCard extends Component {

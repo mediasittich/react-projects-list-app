@@ -1,0 +1,10 @@
+@media (min-width: 768) {
+    .card-columns-custom {
+        column-count: 2;
+    }
+}
+@media (min-width: 992) {
+    .card-columns-custom {
+        column-count: 3;
+    }
+}
