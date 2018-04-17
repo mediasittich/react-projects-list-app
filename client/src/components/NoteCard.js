@@ -1,77 +1,165 @@
-import React from 'react';
+import React, { Component } from 'react';
+import Modal from 'react-modal';
 
-const truncate = (str) => {
-    if (!str) {
-        return '...'
-    }
-    if (str.length > 50) {
-        return str.substring(0, 50) + '...'
-    }
-    return str;
-}
+import './Modal.css';
+// import EditProjectForm from './EditProject';
+import EditProjectForm from './EditProjectsForm';
 
-const NoteCard = (props) => {
-    console.log(props);
-    const truncatedContent = truncate(props.content);
-    return (
 
-        // <div>
-        //     <button className="btn btn-danger" onClick={props.onDelete}>
-        //         <i className="fa fa-trash align-middle mr-2"></i>
-        //     </button>
-        //     
-        // </div>
-
-        <div className="card">
-            <div className="card-body">
-                <h4 className="card-title">{props.title}</h4>
-                <hr />
-                <p className="card-text">{truncatedContent}</p>
-                <p><small className="text-muted">Last updated 3 mins ago</small></p>
-                <button 
-                    type="button" 
-                    className="btn btn-light"
-                    // projectdata={props}
-                    onClick={props.onEdit}
-                    onLoad={props.editProject}
-                >
-                    Edit
-                </button>
-            </div>
-            <div className="card-footer text-center">
-                <button
-                    type="button"
-                    className={props.completed ? 'btn btn-success': 'btn btn-primary'} 
-                    onClick={props.onComplete}
-                >
-                    {props.completed ? 'Reactivate': 'Mark as Complete'}
-                </button>
-            </div>
-        </div>
-    );
-}
-// class NoteCard extends Component {
-//     render() {
-//         return (
-//             <div className="card">
-//                 <div className="card-body">
-//                     <div className="d-flex flex-row justify-content-between">
-//                         <h5 className="card-title">Card title</h5>
-//                         <div className="form-check">
-//                             <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-//                         </div>
-//                     </div>
-                    
-//                     <p className="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-//                     <p className="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-//                     <p><span class="badge badge-pill badge-info">Tag</span></p>
-
-//                     <a href="#" className="btn btn-primary">Edit</a>
-//                     <a href="#" className="btn btn-danger">Delete</a>
-//                 </div>
-//             </div>
-//         );
-//     }
+// const getProject(id) {
+//     const showOneURL = API_URL + id;
+//     fetch(showOneURL)
+//         .then(res => {
+//             if(!res.ok) {
+//                 if(res.status >= 400 && res.status < 500) {
+//                     return res.json().then(data => {
+//                         let err = {errorMessage: data.message};
+//                         throw err;
+//                     })
+//                 } else {
+//                     let err = {errorMessage: 'Please try again later. Server is not responding.'};
+//                     throw err;
+//                 }
+//             }
+//             return res.json();
+//         })
+//         .then((res) => console.log('my project to edit'))
 // }
+const floatButtonStyles = {
+    buttonStyles: {
+        // backgroundColor: 'pink',
+        borderRadius: '50%',
+        boxShadow: '0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15)',
+        boxSizing: 'border-box',
+        cursor: 'pointer',
+        display: 'block',
+        fontSize: '16px',
+        height: '47px',
+        lineHeight: '24px',
+        margin: '-1.44rem ',
+        overflow: 'hidden',
+        padding: '0',
+        position: 'relative',
+        textAlign: 'left',
+        transitionDelay: '0s',
+        transitionDuration: '.2s',
+        transitionProperty: 'all',
+        transitionTimingFunction: 'ease-in-out',
+        verticalAlign: 'middle',
+        width: '47px',
+        zIndex: '1'
+    },
+    iconStyles: {
+        boxSizing: 'border-box',
+        color: '#fff',
+        display: 'inline-block',
+        fontSize: '20px',
+        fontWeight: '400',
+        lineHeight: '47px',
+        textAlign: 'center',
+        width: '47px'
+    }
+}
 
-export default NoteCard;
+Modal.setAppElement('#root');
+
+class ProjectCard extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isEditProjectModalOpen: false
+        };
+
+        this.truncateContent = this.truncateContent.bind(this);
+
+        this.openEditModal = this.openEditModal.bind(this);
+        this.closeEditModal = this.closeEditModal.bind(this);
+    }
+    // DEFINE FUNCTIONS
+    truncateContent = (str) => {
+        if (!str) {
+            return '...'
+        }
+        if (str.length > 50) {
+            return str.substring(0, 50) + '...'
+        }
+        return str;
+    }
+    viewProject = (selectedProject) => {
+        console.log(selectedProject)
+    }
+
+    // MODAL HANDLERS
+    openEditModal = () => {
+        this.setState({
+            isEditProjectModalOpen: true
+        });
+    }
+    closeEditModal = () => {
+        this.setState({
+            isEditProjectModalOpen: false
+        });
+    }
+
+     // RENDER COMPONENT
+    render() {
+        // console.log(this.state.project)
+        console.log(this.props.title)
+        return (
+            <div className="card">
+                <div className="card-header" style={{backgroundColor: '#fff'}}>
+                    <h4 className="card-title" style={{marginTop: '.5rem', marginBottom: '.5rem'}}>{this.props.title}</h4>
+                </div>
+                <button
+                        className="ml-auto mr-3 pink"
+                        style={floatButtonStyles.buttonStyles}
+                        onClick={this.props.onDelete}
+                    >
+                    <i
+                        className="fa fa-trash align-middle mr-2"
+                        style={floatButtonStyles.iconStyles}
+                    ></i>
+                </button>
+                <div className="card-body">
+                    <p className="card-text">{this.props.content}</p>
+                    <p><small className="text-muted">Last updated {this.props.created_date}</small></p>
+                    <button 
+                        type="button" 
+                        className="btn btn-light"
+                        // onClick={this.viewProject.bind(this, this.props._id)}
+                        onClick={this.openEditModal}
+                    >
+                        View
+                    </button>
+
+                    {/* MODAL EDIT */}
+                    <Modal
+                        overlayClassName="Overlay"
+                        className="Modal"
+                        isOpen={this.state.isEditProjectModalOpen}
+                    >
+                        {/* <span style={{cursor: 'pointer'}} onClick={this.closeEditModal}> X </span> */}
+                        {/* <EditProjectForm
+                            closeModal={this.closeEditModal}
+                        /> */}
+                        <EditProjectForm  {...this.props}/>
+                    </Modal>
+                    {/* /MODAL EDIT */}
+                </div>
+                <div className="card-footer text-center">
+                    <button
+                        type="button"
+                        className={this.props.completed ? 'btn btn-success': 'btn btn-primary'} 
+                        onClick={this.props.onComplete}
+                    >
+                        {this.props.completed ? 'Reactivate': 'Mark as Complete'}
+                    </button>
+                </div>
+            </div>
+        );
+    }
+}
+
+export default ProjectCard;

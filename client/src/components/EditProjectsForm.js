@@ -1,36 +1,20 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
 
-class AddProjectForm extends Component {
-
+class EditProjectForm extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            title: '',
-            content: ''
+            title: this.props.title,
+            content: this.props.content,
+            updated_date: Date.now(),
+            completed: this.props.completed
         }
-
-        this.handleTitleChange = this.handleTitleChange.bind(this);
-        this.handleContentChange = this.handleContentChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleTitleChange(event){
-        this.setState({title: event.target.value});
-    }
-    handleContentChange(event){
-        this.setState({content: event.target.value});
-    }
-
-
-    handleSubmit(event){
-        event.preventDefault();
-        console.log(this.state)
-        this.props.addProject(this.state);
     }
 
     render() {
+        console.log(this.props)
+        console.log(this.state)
         return (
             <div>
                 <header className="Modal__header">
@@ -47,7 +31,7 @@ class AddProjectForm extends Component {
                         <input 
                             className="form-control"
                             type="text"
-                            value={this.state.title} 
+                            defaultValue={this.state.title} 
                             onChange={this.handleTitleChange}
                         />
                         <label>Project title</label>
@@ -60,7 +44,7 @@ class AddProjectForm extends Component {
                             id="content" 
                             cols="30" 
                             rows="3"
-                            value={this.state.content}
+                            defaultValue={this.state.content}
                             onChange={this.handleContentChange}
                         ></textarea>
                         <label>Short outline of your awesome ideas...</label>
@@ -81,4 +65,4 @@ class AddProjectForm extends Component {
     }
 }
 
-export default AddProjectForm;
+export default EditProjectForm;

@@ -1,0 +1,66 @@
+.Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .5);
+    z-index: 2;
+}
+
+.Modal { 
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    right: 40px;
+    bottom: auto;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    -webkit-overflow-scrolling: touch;
+    overflow: auto;
+    padding: 0;
+    border-radius: .25rem;
+    box-sizing: border-box;
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+}
+.Modal .Modal__header {
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+}
+.Modal .Modal__header .Modal__title {
+    margin-bottom: 0; 
+}
+.Modal .Modal__header .Modal__closeBtn {
+    background-color: transparent;
+    padding: 1rem;
+    margin: -1.5rem -1rem -1rem auto;
+    border: 0;
+    float: right;
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .5;
+    cursor: pointer;
+}
+.Modal .Modal__header .Modal__closeBtn:hover {
+    opacity: 1;
+}
+
+.Modal .Modal__body {
+    position: relative;
+    padding: 1rem 4rem;
+    flex: 1 1 auto;
+}
+
+.Modal .Modal__footer {
+    padding: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    border-top: 1px solid #e9ecef;
+}

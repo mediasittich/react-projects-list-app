@@ -10,7 +10,8 @@ const projectSchema = new mongoose.Schema({
     //     tag:{type: String, required: false}
     // })],
     completed: { type: Boolean, default: false},
-    created_date: { type: Date, default: Date.now}
+    created_date: { type: Date, default: Date.now},
+    updated_date: { type: Date, default: Date.now}
 });
 
 const Project = mongoose.model('Project', projectSchema);

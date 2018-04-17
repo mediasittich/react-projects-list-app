@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 import './ProjectManager.css';
+import './Modal.css';
 
 import AddProjectForm from './AddProject';
-import EditProjectForm from './EditProject';
+// import EditProjectForm from './EditProject';
 
 // import Searchbar from './Searchbar';
 // import NotesListViewSelector from './NotesListViewSelector';
@@ -15,28 +16,20 @@ const API_URL = '/api/projects/';
 
 Modal.setAppElement('#root');
 
-Modal.defaultStyles.overlay.backgroundColor = 'rgba(0, 0, 0, .5)';
-Modal.defaultStyles.content.borderRadius = '.25rem';
-Modal.defaultStyles.content.padding = '0';
-Modal.defaultStyles.content.width = 'auto';
-Modal.defaultStyles.content.bottom = 'auto';
-
 class ProjectManager extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             projects: [],
-            selectedProject: null,
+            // selectedProject: null,
             isAddProjectModalOpen: false,
-            isEditProjectModalOpen: false
         };
 
         this.addProject = this.addProject.bind(this);
+
         this.openAddModal = this.openAddModal.bind(this);
         this.closeAddModal = this.closeAddModal.bind(this);
-        this.openEditModal = this.openEditModal.bind(this);
-        this.closeEditModal = this.closeEditModal.bind(this);
     }
 
     // DEFINE FUNCTIONS
@@ -44,38 +37,19 @@ class ProjectManager extends Component {
         this.loadProjects();
     }
 
-    // API handlers
+    // API HANDLERS
+    // SHOW ALL
     async loadProjects() {
         let projects = await apiCalls.getProjects();
         this.setState({projects});
     }
-
-    getProject(id) {
-        const showOneURL = API_URL + id;
-        fetch(showOneURL)
-            .then(res => {
-                if(!res.ok) {
-                    if(res.status >= 400 && res.status < 500) {
-                        return res.json().then(data => {
-                            let err = {errorMessage: data.message};
-                            throw err;
-                        })
-                    } else {
-                        let err = {errorMessage: 'Please try again later. Server is not responding.'};
-                        throw err;
-                    }
-                }
-                return res.json();
-            })
-            .then((res) => console.log('my project to edit'))
-    }
-
+    // ADD ONE
     async addProject(item) {
         console.log('Adding new project', item);
         let newProject = await apiCalls.createProject(item);
         this.setState({projects: [newProject,...this.state.projects]})
     }
-
+    // PATCH ONE
     toggleComplete(project) {
         const updateURL = API_URL + project._id;
 
@@ -111,10 +85,7 @@ class ProjectManager extends Component {
 
     }
 
-    editProject(project) {
-        console.log(project)
-    }
-
+    // DELETE ONE
     deleteProject(id) {
         const deleteURL = API_URL + id;
 
@@ -152,16 +123,6 @@ class ProjectManager extends Component {
             isAddProjectModalOpen: false
         });
     }
-    openEditModal = () => {
-        this.setState({
-            isEditProjectModalOpen: true
-        });
-    }
-    closeEditModal = () => {
-        this.setState({
-            isEditProjectModalOpen: false
-        });
-    }
 
     // RENDER COMPONENT
     render() {
@@ -171,35 +132,41 @@ class ProjectManager extends Component {
                 {...p}
                 onDelete={this.deleteProject.bind(this, p._id)}
                 onComplete={this.toggleComplete.bind(this, p)}
-                onEdit={this.openEditModal.bind(this, p)}
-                editProject={this.editProject.bind(this, p)}
             />
         ));
         
-        // const editableProjects = this.state.projects.map((p) => (
-        //     let editableProject = p
-        // ));
-        console.log(this.state.projects)
-        // console.log(this.state)
         return (
             <main className="container mt-5 main-container">
                 {/* <Searchbar /> */}
                 {/* <AddNote /> */}
-                <div className="text-center mt-4 mb-2">
-                    <button type="button" className="btn btn-primary btn-lg" onClick={this.openAddModal}>Add New Project</button>
-                </div>
-                
-                <Modal isOpen={this.state.isAddProjectModalOpen}>
-                    <AddProjectForm addProject={this.addProject} closeModal={this.closeAddModal} />
-                </Modal>
 
-                <Modal isOpen={this.state.isEditProjectModalOpen}>
-                    <span style={{cursor: 'pointer'}} onClick={this.closeEditModal}> X </span>
-                    <EditProjectForm />
+                {/* BUTTON TO ADD NEW PROJECT */}
+                <div className="text-center mt-4 mb-2">
+                    <button 
+                        type="button" 
+                        className="btn btn-primary btn-lg" 
+                        onClick={this.openAddModal}
+                    >
+                        Add New Project
+                    </button>
+                </div>
+
+                {/* MODAL ADD */}
+                <Modal 
+                    overlayClassName="Overlay"
+                    className="Modal"
+                    isOpen={this.state.isAddProjectModalOpen}
+                >
+                    <AddProjectForm
+                        addProject={this.addProject}
+                        closeModal={this.closeAddModal}
+                    />
                 </Modal>
+                {/* /MODAL ADD */}
                 
                 {/* <NotesListViewSelector /> */}
 
+                {/* CARD GRID */}
                 <div className="card-columns mb-4" style={{columnCount: '2'}}>
                     {projects}
                 </div>
