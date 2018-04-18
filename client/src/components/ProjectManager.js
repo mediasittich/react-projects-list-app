@@ -3,6 +3,8 @@ import Modal from 'react-modal';
 import './ProjectManager.css';
 import './Modal.css';
 
+import Header from './Header';
+// import Footer from './components/Footer/Footer';
 import AddProjectForm from './AddProject';
 
 // import Searchbar from './Searchbar';
@@ -134,41 +136,45 @@ class ProjectManager extends Component {
         ));
         
         return (
-            <main className="container-fluid mt-5 main-container">
-                {/* <Searchbar /> */}
-                {/* <AddNote /> */}
+            <div style={{backgroundColor: '#f7f7f9'}}>
+                <Header />
+                <main className="container-fluid mt-5 main-container">
+                    {/* <Searchbar /> */}
+                    {/* <AddNote /> */}
 
-                {/* BUTTON TO ADD NEW PROJECT */}
-                <div className="text-center mt-4 mb-4">
-                    <button 
-                        type="button" 
-                        className="btn btn-primary teal lighten-2 btn-lg" 
-                        onClick={this.openAddModal}
+                    {/* BUTTON TO ADD NEW PROJECT */}
+                    <div className="text-center mt-4 mb-4">
+                        <button 
+                            type="button" 
+                            className="btn btn-primary teal lighten-2 btn-lg" 
+                            onClick={this.openAddModal}
+                        >
+                            Add New Project
+                        </button>
+                    </div>
+
+                    {/* MODAL ADD */}
+                    <Modal 
+                        overlayClassName="Overlay"
+                        className="Modal"
+                        isOpen={this.state.isAddProjectModalOpen}
                     >
-                        Add New Project
-                    </button>
-                </div>
+                        <AddProjectForm
+                            addProject={this.addProject}
+                            closeModal={this.closeAddModal}
+                        />
+                    </Modal>
+                    {/* /MODAL ADD */}
+                    
+                    {/* <NotesListViewSelector /> */}
 
-                {/* MODAL ADD */}
-                <Modal 
-                    overlayClassName="Overlay"
-                    className="Modal"
-                    isOpen={this.state.isAddProjectModalOpen}
-                >
-                    <AddProjectForm
-                        addProject={this.addProject}
-                        closeModal={this.closeAddModal}
-                    />
-                </Modal>
-                {/* /MODAL ADD */}
-                
-                {/* <NotesListViewSelector /> */}
-
-                {/* CARD GRID */}
-                <div className="row justify-content-center mb-4">
-                    {projects}
-                </div>
-            </main>
+                    {/* CARD GRID */}
+                    <div className="row justify-content-center mb-4">
+                        {projects}
+                    </div>
+                </main>
+                {/* <Footer /> */}
+            </div>
         );
     }
 }
