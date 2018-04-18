@@ -101,7 +101,7 @@ class ProjectCard extends Component {
      // RENDER COMPONENT
     render() {
         // console.log(this.props)
-        console.log(this.state.updated_date)
+        // console.log(this.state.updated_date)
         const truncatedContent = this.truncateContent(this.state.content)
         return (
             <div className="col-auto mb-3">
