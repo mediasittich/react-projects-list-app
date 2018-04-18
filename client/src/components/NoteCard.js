@@ -5,7 +5,7 @@ import './Modal.css';
 // import EditProjectForm from './EditProject';
 import EditProjectForm from './EditProjectsForm';
 
-
+import * as apiCalls from '../api';
 // const getProject(id) {
 //     const showOneURL = API_URL + id;
 //     fetch(showOneURL)
@@ -71,13 +71,14 @@ class ProjectCard extends Component {
         super(props);
 
         this.state = {
-            project: {
+            
                 id: this.props._id,
                 title: this.props.title,
                 content: this.props.content,
+                created_date: this.props.created_date,
                 updated_date: Date.now(),
-                completed: this.props.completed
-            },
+                completed: this.props.completed,
+            
 
             isEditProjectModalOpen: false
         };
@@ -101,41 +102,76 @@ class ProjectCard extends Component {
         return str;
     }
 
+    toggleEditComplete () {
+        this.setState({
+            
+                completed: !this.state.completed
+            
+        })
+    }
+    onTitleChange = (val) => {
+        this.setState({
+                title: val
+        });
+    }
+    handleEditContentChange(event){
+        this.setState({
+            
+                content: event.target.value
+            
+        });
+    }
+
     handleEditSubmit(event){
         event.preventDefault();
-        this.setState({...this.state.project})
+        this.setState({...this.state})
         console.log(this.state)
-        this.updateProject(this.state.project);
+        const data = {
+            id: this.state.id,
+            title: this.state.title,
+            content: this.state.content,
+            created_date: this.state.created_date,
+            updated_date: Date.now(),
+            completed: this.state.completed
+        }
+        this.updateProject(data);
     }
     // API HANDLERS
     // UPDATE ONE
-    updateProject(projectToUpdate) {
+    async updateProject(projectToUpdate) {
+        console.log(this.state)
+        console.log(projectToUpdate)
         const updateOneURL = API_URL + projectToUpdate.id;
+        console.log(projectToUpdate.id)
+        console.log(updateOneURL)
+        console.log(JSON.stringify(projectToUpdate))
 
-        fetch(updateOneURL, {
-            method: 'PUT',
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            }),
-            body: JSON.stringify(projectToUpdate)
-        })
-            .then(res => {
-                if(!res.ok) {
-                    if(res.status >= 400 && res.status < 500) {
-                        return res.json().then(data => {
-                            let err = {errorMessage: data.message};
-                            throw err;
-                        })
-                    } else {
-                        let err = {errorMessage: 'Please try again later. Server is not responding.'};
-                        throw err;
-                    }
-                }
-                return res.json();
-            })
-            .then((updatedProject) => {
-                this.setState({...updatedProject});
-            });
+        await apiCalls.updateProject(projectToUpdate);
+        // fetch(updateOneURL, {
+        //     method: 'PUT',
+        //     headers: new Headers({
+        //         'Content-Type': 'application/json'
+        //     }),
+        //     body: JSON.stringify(projectToUpdate)
+        // })
+        //     .then(res => {
+        //         if(!res.ok) {
+        //             if(res.status >= 400 && res.status < 500) {
+        //                 return res.json().then(data => {
+        //                     let err = {errorMessage: data.message};
+        //                     throw err;
+        //                 })
+        //             } else {
+        //                 let err = {errorMessage: 'Please try again later. Server is not responding.'};
+        //                 throw err;
+        //             }
+        //         }
+        //         console.log(res.json())
+        //         // return res.json();
+        //     })
+        //     .then((updatedProject) => {
+        //         // this.setState({...updatedProject});
+        //     });
     }
 
     // MODAL HANDLERS
@@ -157,7 +193,7 @@ class ProjectCard extends Component {
         return (
             <div className="card">
                 <div className="card-header" style={{backgroundColor: '#fff'}}>
-                    <h4 className="card-title" style={{marginTop: '.5rem', marginBottom: '.5rem'}}>{this.props.title}</h4>
+                    <h4 className="card-title" style={{marginTop: '.5rem', marginBottom: '.5rem'}}>{this.state.title}</h4>
                 </div>
                 <button
                         className="ml-auto mr-3 pink"
@@ -189,6 +225,9 @@ class ProjectCard extends Component {
                         <EditProjectForm
                             closeModal={this.closeEditModal}
                             {...this.props}
+                            onComplete={this.toggleEditComplete}
+                            onTitleChange={this.onTitleChange}
+                            onContentChange={this.handleEditContentChange}
                             handleEditSubmit={this.handleEditSubmit}
                             // onComplete={this.props.onComplete}
                         />

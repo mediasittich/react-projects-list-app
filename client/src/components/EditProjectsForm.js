@@ -7,19 +7,19 @@ class EditProjectForm extends Component {
         super(props);
 
         this.state = {
-            project: {
+            
                 id: this.props._id,
                 title: this.props.title,
                 content: this.props.content,
                 updated_date: Date.now(),
                 completed: this.props.completed
-            }
+            
         }
         // this.showProject = this.showProject.bind(this);
         // this.updateProject = this.updateProject.bind(this);
 
-        this.handleEditTitleChange = this.handleEditTitleChange.bind(this);
-        this.handleEditContentChange = this.handleEditContentChange.bind(this);
+        // this.handleEditTitleChange = this.handleEditTitleChange.bind(this);
+        // this.handleEditContentChange = this.handleEditContentChange.bind(this);
         // this.handleEditSubmit = this.handleEditSubmit.bind(this);
     }
 
@@ -28,17 +28,17 @@ class EditProjectForm extends Component {
         // this.showProject(this.props._id);
     // }
 
-    toggleEditComplete () {
-        this.setState({
-            completed: !this.state.completed
-        })
-    }
-    handleEditTitleChange(event){
-        this.setState({title: event.target.value});
-    }
-    handleEditContentChange(event){
-        this.setState({content: event.target.value});
-    }
+    // toggleEditComplete () {
+    //     this.setState({
+    //         completed: !this.state.completed
+    //     })
+    // }
+    // handleEditTitleChange(event){
+    //     this.setState({title: event.target.value});
+    // }
+    // handleEditContentChange(event){
+    //     this.setState({content: event.target.value});
+    // }
     // handleEditSubmit(event){
     //     event.preventDefault();
     //     this.setState({updated_date: Date.now()})
@@ -101,12 +101,21 @@ class EditProjectForm extends Component {
     //             this.setState({...updatedProject});
     //         });
     // }
+    updateTitle = (e) => {
+        console.log(e.target.value);
+        this.props.onTitleChange(e.target.value);
+        this.setState({
+            
+                title: e.target.value
+            
+        });
+    }
 
     render() {
         // console.log(this.props)
-        console.log(this.state.project)
+        // console.log(this.state)
         return (
-            <div>
+            <form>
                 <header className="Modal__header">
                     <h5 className="Modal__title">Edit Project</h5>
                     <button
@@ -120,18 +129,19 @@ class EditProjectForm extends Component {
                     <div className="text-center">
                         <button
                             type="button"
-                            className={this.state.project.completed ? 'btn btn-success': 'btn btn-primary'} 
-                            onClick={this.toggleEditComplete.bind(this)}
+                            className={this.state.completed ? 'btn btn-success': 'btn btn-primary'} 
+                            // onClick={this.toggleEditComplete.bind(this)}
                         >
-                            {this.state.project.completed ? 'Reactivate': 'Mark as Complete'}
+                            {this.state.completed ? 'Reactivate': 'Mark as Complete'}
                         </button>
                     </div>
                     <div className="md-form mb-3">
                         <input 
                             className="form-control"
                             type="text"
-                            defaultValue={this.state.project.title} 
-                            onChange={this.handleEditTitleChange}
+                            // defaultValue={this.state.title} 
+                            onChange={this.updateTitle}
+                            value={this.state.title}
                         />
                         {/* <label>Project title</label> */}
                     </div>
@@ -143,8 +153,8 @@ class EditProjectForm extends Component {
                             id="content" 
                             cols="30" 
                             rows="3"
-                            defaultValue={this.state.project.content}
-                            onChange={this.handleEditContentChange}
+                            defaultValue={this.state.content}
+                            // onChange={this.handleEditContentChange}
                         ></textarea>
                         {/* <label>Short outline of your awesome ideas...</label> */}
                     </div>
@@ -159,7 +169,7 @@ class EditProjectForm extends Component {
                         onClick={this.props.handleEditSubmit}
                     >Save Changes</button>
                 </footer>
-            </div>
+            </form>
         );
     }
 }

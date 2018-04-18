@@ -48,12 +48,16 @@ exports.updateKeysInProject =(req, res) => {
 }
 
 exports.updateProject = (req, res) => {
+    // console.log(req.params.projectId)
     console.log(req.body)
+    const updatedProject = req.body;
     db.Project.findByIdAndUpdate(
         {_id: req.params.projectId},
-        {$push: {url: req.body.url}},
+        req.body,
+        // {$push: {url: req.body.url}},
         {new: true})
         .then((updatedProject) => {
+            // console.log(updatedProject)
             res.json(updatedProject)
         })
         .catch((err) => {
