@@ -96,8 +96,8 @@ class ProjectCard extends Component {
         if (!str) {
             return '...'
         }
-        if (str.length > 50) {
-            return str.substring(0, 50) + '...'
+        if (str.length > 100) {
+            return str.substring(0, 100) + '...'
         }
         return str;
     }
@@ -114,11 +114,9 @@ class ProjectCard extends Component {
                 title: val
         });
     }
-    handleEditContentChange(event){
+    onContentChange = (val) => {
         this.setState({
-            
-                content: event.target.value
-            
+                content: val
         });
     }
 
@@ -190,6 +188,7 @@ class ProjectCard extends Component {
     render() {
         // console.log(this.props)
         console.log(this.state)
+        const truncatedContent = this.truncateContent(this.state.content)
         return (
             <div className="card">
                 <div className="card-header" style={{backgroundColor: '#fff'}}>
@@ -206,8 +205,8 @@ class ProjectCard extends Component {
                     ></i>
                 </button>
                 <div className="card-body">
-                    <p className="card-text">{this.props.content}</p>
-                    <p><small className="text-muted">Last updated {this.props.created_date}</small></p>
+                    <p className="card-text">{truncatedContent}</p>
+                    <p><small className="text-muted">Last updated {this.state.updated_date}</small></p>
                     <button 
                         type="button" 
                         className="btn btn-light"
@@ -227,7 +226,7 @@ class ProjectCard extends Component {
                             {...this.props}
                             onComplete={this.toggleEditComplete}
                             onTitleChange={this.onTitleChange}
-                            onContentChange={this.handleEditContentChange}
+                            onContentChange={this.onContentChange}
                             handleEditSubmit={this.handleEditSubmit}
                             // onComplete={this.props.onComplete}
                         />

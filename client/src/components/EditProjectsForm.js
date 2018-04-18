@@ -105,9 +105,14 @@ class EditProjectForm extends Component {
         console.log(e.target.value);
         this.props.onTitleChange(e.target.value);
         this.setState({
-            
                 title: e.target.value
-            
+        });
+    }
+    updateContent = (e) => {
+        console.log(e.target.value);
+        this.props.onContentChange(e.target.value);
+        this.setState({
+                content: e.target.value
         });
     }
 
@@ -153,7 +158,8 @@ class EditProjectForm extends Component {
                             id="content" 
                             cols="30" 
                             rows="3"
-                            defaultValue={this.state.content}
+                            onChange={this.updateContent}
+                            value={this.state.content}
                             // onChange={this.handleEditContentChange}
                         ></textarea>
                         {/* <label>Short outline of your awesome ideas...</label> */}
