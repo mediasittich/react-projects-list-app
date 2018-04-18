@@ -63,16 +63,29 @@ const floatButtonStyles = {
 
 Modal.setAppElement('#root');
 
+const API_URL = '/api/projects/';
+
 class ProjectCard extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
+            project: {
+                id: this.props._id,
+                title: this.props.title,
+                content: this.props.content,
+                updated_date: Date.now(),
+                completed: this.props.completed
+            },
+
             isEditProjectModalOpen: false
         };
 
         this.truncateContent = this.truncateContent.bind(this);
+        this.updateProject = this.updateProject.bind(this);
+
+        this.handleEditSubmit = this.handleEditSubmit.bind(this);
 
         this.openEditModal = this.openEditModal.bind(this);
         this.closeEditModal = this.closeEditModal.bind(this);
@@ -87,8 +100,42 @@ class ProjectCard extends Component {
         }
         return str;
     }
-    viewProject = (selectedProject) => {
-        console.log(selectedProject)
+
+    handleEditSubmit(event){
+        event.preventDefault();
+        this.setState({...this.state.project})
+        console.log(this.state)
+        this.updateProject(this.state.project);
+    }
+    // API HANDLERS
+    // UPDATE ONE
+    updateProject(projectToUpdate) {
+        const updateOneURL = API_URL + projectToUpdate.id;
+
+        fetch(updateOneURL, {
+            method: 'PUT',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify(projectToUpdate)
+        })
+            .then(res => {
+                if(!res.ok) {
+                    if(res.status >= 400 && res.status < 500) {
+                        return res.json().then(data => {
+                            let err = {errorMessage: data.message};
+                            throw err;
+                        })
+                    } else {
+                        let err = {errorMessage: 'Please try again later. Server is not responding.'};
+                        throw err;
+                    }
+                }
+                return res.json();
+            })
+            .then((updatedProject) => {
+                this.setState({...updatedProject});
+            });
     }
 
     // MODAL HANDLERS
@@ -105,8 +152,8 @@ class ProjectCard extends Component {
 
      // RENDER COMPONENT
     render() {
-        // console.log(this.state.project)
-        console.log(this.props.title)
+        // console.log(this.props)
+        console.log(this.state)
         return (
             <div className="card">
                 <div className="card-header" style={{backgroundColor: '#fff'}}>
@@ -128,7 +175,6 @@ class ProjectCard extends Component {
                     <button 
                         type="button" 
                         className="btn btn-light"
-                        // onClick={this.viewProject.bind(this, this.props._id)}
                         onClick={this.openEditModal}
                     >
                         View
@@ -140,13 +186,15 @@ class ProjectCard extends Component {
                         className="Modal"
                         isOpen={this.state.isEditProjectModalOpen}
                     >
-                        {/* <span style={{cursor: 'pointer'}} onClick={this.closeEditModal}> X </span> */}
-                        {/* <EditProjectForm
+                        <EditProjectForm
                             closeModal={this.closeEditModal}
-                        /> */}
-                        <EditProjectForm  {...this.props}/>
+                            {...this.props}
+                            handleEditSubmit={this.handleEditSubmit}
+                            // onComplete={this.props.onComplete}
+                        />
                     </Modal>
                     {/* /MODAL EDIT */}
+
                 </div>
                 <div className="card-footer text-center">
                     <button
