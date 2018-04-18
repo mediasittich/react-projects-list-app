@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-const API_URL = '/api/projects/';
-
 class EditProjectForm extends Component {
     constructor(props) {
         super(props);

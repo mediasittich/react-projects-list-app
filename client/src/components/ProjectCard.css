@@ -1,0 +1,45 @@
+.card-custom .custom-float-round {
+    border-radius: 50%;
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    font-size: 16px;
+    height: 47px;
+    line-height: 24px;
+    margin: -1.44rem;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    text-align: left;
+    transition-delay: 0s;
+    transition-duration: .2s;
+    transition-property: all;
+    transition-timing-function: ease-in-out;
+    width: 47px;
+    z-index: 1;
+}
+
+.card-custom .custom-float-round i {
+    box-sizing: border-box;
+    color: #fff;
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 47px;
+    text-align: center;
+    width: 47px;
+}
+
+.card-custom .card-footer .btn {
+    width: 90%;
+}
+
+.card-custom .card-footer .btn-success-custom {
+    background-color: #00C851;
+}
+.card-custom .card-footer .btn-primary-custom {
+    background-color: transparent;
+    color: #00C851!important;
+    border: 1px solid #00C851;
+}
