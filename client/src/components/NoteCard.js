@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
+import Moment from 'react-moment';
 
 import './Modal.css';
 import './ProjectCard.css';
@@ -21,7 +22,7 @@ class ProjectCard extends Component {
                 title: this.props.title,
                 content: this.props.content,
                 created_date: this.props.created_date,
-                updated_date: Date.now(),
+                updated_date: this.props.updated_date,
                 completed: this.props.completed,
             
 
@@ -100,7 +101,7 @@ class ProjectCard extends Component {
      // RENDER COMPONENT
     render() {
         // console.log(this.props)
-        console.log(this.state)
+        console.log(this.state.updated_date)
         const truncatedContent = this.truncateContent(this.state.content)
         return (
             <div className="col-auto mb-3">
@@ -118,7 +119,12 @@ class ProjectCard extends Component {
                     </button>
                     <div className="card-body">
                         <p className="card-text mt-3">{truncatedContent}</p>
-                        <p><small className="text-muted">Last updated {this.state.updated_date}</small></p>
+                        <p>
+                            <small className="text-muted">
+                                <span>Last updated </span>
+                                <Moment fromNow>{this.state.updated_date}</Moment>
+                            </small>
+                        </p>
                         <button 
                             type="button" 
                             className="btn btn-primary teal lighten-2"
