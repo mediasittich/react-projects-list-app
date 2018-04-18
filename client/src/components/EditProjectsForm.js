@@ -161,10 +161,12 @@ class EditProjectForm extends Component {
                 </section>
                 <footer className="Modal__footer">
                     <button 
+                        type="button"
                         className="btn btn-light waves-effect waves-light"
                         onClick={this.props.closeModal}
                     >Close</button>
                     <button
+                        type="button"
                         className="btn btn-danger waves-effect waves-light"
                         onClick={this.props.handleEditSubmit}
                     >Save Changes</button>
