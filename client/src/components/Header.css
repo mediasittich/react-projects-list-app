@@ -5,8 +5,12 @@
     margin-left: 2rem;
 }
 .navbar-brand-custom i {
-    margin-right: .2rem;
+    margin-right: .4rem;
 }
 .navbar-brand-custom h1 {
     display: inline-block;
+    font-family: 'Raleway', sans-serif;
+}
+.navbar-custom .nav-link {
+    margin-top: -.4rem;
 }
