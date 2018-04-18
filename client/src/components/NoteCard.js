@@ -190,58 +190,60 @@ class ProjectCard extends Component {
         console.log(this.state)
         const truncatedContent = this.truncateContent(this.state.content)
         return (
-            <div className="card">
-                <div className="card-header" style={{backgroundColor: '#fff'}}>
-                    <h4 className="card-title" style={{marginTop: '.5rem', marginBottom: '.5rem'}}>{this.state.title}</h4>
-                </div>
-                <button
-                        className="ml-auto mr-3 danger-color"
-                        style={floatButtonStyles.buttonStyles}
-                        onClick={this.props.onDelete}
-                    >
-                    <i
-                        className="fa fa-trash align-middle mr-2"
-                        style={floatButtonStyles.iconStyles}
-                    ></i>
-                </button>
-                <div className="card-body">
-                    <p className="card-text">{truncatedContent}</p>
-                    <p><small className="text-muted">Last updated {this.state.updated_date}</small></p>
-                    <button 
-                        type="button" 
-                        className="btn btn-light"
-                        onClick={this.openEditModal}
-                    >
-                        View
-                    </button>
-
-                    {/* MODAL EDIT */}
-                    <Modal
-                        overlayClassName="Overlay"
-                        className="Modal"
-                        isOpen={this.state.isEditProjectModalOpen}
-                    >
-                        <EditProjectForm
-                            closeModal={this.closeEditModal}
-                            {...this.props}
-                            onComplete={this.toggleEditComplete}
-                            onTitleChange={this.onTitleChange}
-                            onContentChange={this.onContentChange}
-                            handleEditSubmit={this.handleEditSubmit}
-                            // onComplete={this.props.onComplete}
-                        />
-                    </Modal>
-                    {/* /MODAL EDIT */}
-
-                </div>
-                <div className="card-footer text-center">
+            <div className="col-auto mb-3">
+                <div className="card" style={{width: '24rem'}}>
+                    <div className="card-header" style={{backgroundColor: '#fff'}}>
+                        <h4 className="card-title" style={{marginTop: '.5rem', marginBottom: '.5rem'}}>{this.state.title}</h4>
+                    </div>
                     <button
-                        type="button"
-                        className={this.props.completed ? 'btn btn-success': 'btn btn-primary'} 
-                        onClick={this.props.onComplete}
-                    >
-                        {this.props.completed ? 'Reactivate': 'Mark as Complete'}
+                            className="ml-auto mr-3 danger-color"
+                            style={floatButtonStyles.buttonStyles}
+                            onClick={this.props.onDelete}
+                        >
+                        <i
+                            className="fa fa-trash align-middle mr-2"
+                            style={floatButtonStyles.iconStyles}
+                        ></i>
                     </button>
+                    <div className="card-body">
+                        <p className="card-text">{truncatedContent}</p>
+                        <p><small className="text-muted">Last updated {this.state.updated_date}</small></p>
+                        <button 
+                            type="button" 
+                            className="btn btn-light"
+                            onClick={this.openEditModal}
+                        >
+                            View
+                        </button>
+
+                        {/* MODAL EDIT */}
+                        <Modal
+                            overlayClassName="Overlay"
+                            className="Modal"
+                            isOpen={this.state.isEditProjectModalOpen}
+                        >
+                            <EditProjectForm
+                                closeModal={this.closeEditModal}
+                                {...this.props}
+                                onComplete={this.toggleEditComplete}
+                                onTitleChange={this.onTitleChange}
+                                onContentChange={this.onContentChange}
+                                handleEditSubmit={this.handleEditSubmit}
+                                // onComplete={this.props.onComplete}
+                            />
+                        </Modal>
+                        {/* /MODAL EDIT */}
+
+                    </div>
+                    <div className="card-footer text-center">
+                        <button
+                            type="button"
+                            className={this.props.completed ? 'btn btn-success': 'btn btn-primary'} 
+                            onClick={this.props.onComplete}
+                        >
+                            {this.props.completed ? 'Reactivate': 'Mark as Complete'}
+                        </button>
+                    </div>
                 </div>
             </div>
         );

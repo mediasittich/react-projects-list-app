@@ -4,7 +4,6 @@ import './ProjectManager.css';
 import './Modal.css';
 
 import AddProjectForm from './AddProject';
-// import EditProjectForm from './EditProject';
 
 // import Searchbar from './Searchbar';
 // import NotesListViewSelector from './NotesListViewSelector';
@@ -22,7 +21,6 @@ class ProjectManager extends Component {
 
         this.state = {
             projects: [],
-            // selectedProject: null,
             isAddProjectModalOpen: false,
         };
 
@@ -136,12 +134,12 @@ class ProjectManager extends Component {
         ));
         
         return (
-            <main className="container mt-5 main-container">
+            <main className="container-fluid mt-5 main-container">
                 {/* <Searchbar /> */}
                 {/* <AddNote /> */}
 
                 {/* BUTTON TO ADD NEW PROJECT */}
-                <div className="text-center mt-4 mb-2">
+                <div className="text-center mt-4 mb-4">
                     <button 
                         type="button" 
                         className="btn btn-primary btn-lg" 
@@ -167,7 +165,7 @@ class ProjectManager extends Component {
                 {/* <NotesListViewSelector /> */}
 
                 {/* CARD GRID */}
-                <div className="card-columns mb-4" style={{columnCount: '2'}}>
+                <div className="row justify-content-center mb-4">
                     {projects}
                 </div>
             </main>
