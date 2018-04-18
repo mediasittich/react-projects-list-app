@@ -15,7 +15,7 @@ class EditProjectForm extends Component {
                 completed: this.props.completed
             }
         }
-        this.showProject = this.showProject.bind(this);
+        // this.showProject = this.showProject.bind(this);
         // this.updateProject = this.updateProject.bind(this);
 
         this.handleEditTitleChange = this.handleEditTitleChange.bind(this);
@@ -24,9 +24,9 @@ class EditProjectForm extends Component {
     }
 
     // DEFINE FUNCTIONS
-    componentWillMount() {
+    // componentWillMount() {
         // this.showProject(this.props._id);
-    }
+    // }
 
     toggleEditComplete () {
         this.setState({
@@ -47,30 +47,30 @@ class EditProjectForm extends Component {
     // }
     // API HANDLERS
     // SHOW ONE
-    showProject(id) {
-        const showOneURL = API_URL + id;
+    // showProject(id) {
+    //     const showOneURL = API_URL + id;
 
-        // console.log('project id', id)
-        fetch(showOneURL)
-            .then(res => {
-                if(!res.ok) {
-                    if(res.status >= 400 && res.status < 500) {
-                        return res.json().then(data => {
-                            let err = {errorMessage: data.message};
-                            throw err;
-                        })
-                    } else {
-                        let err = {errorMessage: 'Please try again later. Server is not responding.'};
-                        throw err;
-                    }
-                }
-                return res.json();
-            })
-            .then((currentProject) => {
-                this.setState({...currentProject})
-                // console.log('Project data loaded')
-            })
-    }
+    //     // console.log('project id', id)
+    //     fetch(showOneURL)
+    //         .then(res => {
+    //             if(!res.ok) {
+    //                 if(res.status >= 400 && res.status < 500) {
+    //                     return res.json().then(data => {
+    //                         let err = {errorMessage: data.message};
+    //                         throw err;
+    //                     })
+    //                 } else {
+    //                     let err = {errorMessage: 'Please try again later. Server is not responding.'};
+    //                     throw err;
+    //                 }
+    //             }
+    //             return res.json();
+    //         })
+    //         .then((currentProject) => {
+    //             this.setState({...currentProject})
+    //             // console.log('Project data loaded')
+    //         })
+    // }
 
     // UPDATE ONE
     // updateProject(projectToUpdate) {
