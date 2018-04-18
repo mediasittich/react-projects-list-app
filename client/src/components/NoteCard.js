@@ -195,7 +195,7 @@ class ProjectCard extends Component {
                     <h4 className="card-title" style={{marginTop: '.5rem', marginBottom: '.5rem'}}>{this.state.title}</h4>
                 </div>
                 <button
-                        className="ml-auto mr-3 pink"
+                        className="ml-auto mr-3 danger-color"
                         style={floatButtonStyles.buttonStyles}
                         onClick={this.props.onDelete}
                     >
