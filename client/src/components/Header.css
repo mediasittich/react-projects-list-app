@@ -1,0 +1,12 @@
+.navbar-custom {
+    padding-bottom: 0;
+}
+.navbar-brand-custom {
+    margin-left: 2rem;
+}
+.navbar-brand-custom i {
+    margin-right: .2rem;
+}
+.navbar-brand-custom h1 {
+    display: inline-block;
+}
