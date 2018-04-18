@@ -142,7 +142,7 @@ class ProjectManager extends Component {
                 <div className="text-center mt-4 mb-4">
                     <button 
                         type="button" 
-                        className="btn btn-primary btn-lg" 
+                        className="btn btn-primary teal lighten-2 btn-lg" 
                         onClick={this.openAddModal}
                     >
                         Add New Project
